@@ -1156,7 +1156,7 @@ pre {
 }
 .cid-qphqoBwu8H {
   padding-top: 0px;
-  padding-bottom: 90px;
+  padding-bottom: 0px;
   background-color: #efefef;
 }
 .cid-qphqoBwu8H .card-img {
@@ -1188,6 +1188,22 @@ pre {
 .cid-qphqoBwu8H .card-wrapper:hover {
   box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.3s;
+}
+.cid-qqp1d3pjEf {
+  padding-top: 45px;
+  padding-bottom: 15px;
+  background-color: #efefef;
+}
+.cid-qqp1d3pjEf .mbr-section-subtitle {
+  color: #767676;
+}
+.cid-qqp0RNEoW2 {
+  padding-top: 0px;
+  padding-bottom: 60px;
+  background-color: #efefef;
+}
+.cid-qqp0RNEoW2 .mbr-section-subtitle {
+  color: #767676;
 }
 .cid-qpm6OocSYo {
   padding-top: 60px;
@@ -1235,7 +1251,7 @@ pre {
 }
 .cid-qqoNK6Odqm {
   padding-top: 0px;
-  padding-bottom: 0px;
+  padding-bottom: 30px;
   background-color: #ffffff;
 }
 .cid-qqoNK6Odqm .mbr-text {
@@ -1306,7 +1322,7 @@ pre {
 .cid-qphpFFLpHe {
   padding-top: 90px;
   padding-bottom: 90px;
-  background-image: url("../../../assets/images/0315.jpg");
+  background-image: url("../../../assets/images/0325.jpg");
 }
 .cid-qphpFFLpHe .icons-media-container {
   display: flex;
