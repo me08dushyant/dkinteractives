@@ -1181,7 +1181,12 @@
     }
 
 // Table Block;
-    function initTable(card,isSearch){
+    function getRowCount(card){
+        var $tbodyRows = $(card).find('.table tbody tr').length;
+        $(card).find('.dataTables_info span.infoRows').text($tbodyRows);
+    }
+
+    function initTable(card,isSearch, searchText, infoBefore, infoAfter, infoFilteredBefore, infoFilteredAfter){
         var $target = $(card);
             $target.find('table').dataTable({
             retrieve:true,
@@ -1191,23 +1196,73 @@
             searching:isSearch,
             info: isSearch,
             language: {
-                "search": "Search:",
-                "info": "Showing" + ' _END_ ' + "entries",
-                "infoEmpty": "Showing" + ' _END_ ' + "entries",
-                "infoFiltered": "(filtered from" + ' _MAX_ ' + "total entries)",
+                "search": searchText,
+                "info": infoBefore + ' _END_ ' + infoAfter,
+                "infoEmpty": infoBefore + ' _END_ ' + infoAfter,
+                "infoFiltered": infoFilteredBefore + ' _MAX_ ' + infoFilteredAfter,
             }
         });
     }
-    if(!isBuilder){
+
+    function getDisplayClass(arr){
+        var display="";
+        $.each(arr, function(index, el) {   
+            if (el.indexOf('display') == 0) {
+                display = el;
+            }
+        });
+        return display;
+    }
+    
+    if (isBuilder){
+        $(document).on('add.cards',function(event) {
+            if($(event.target).hasClass('section-table')){
+                getRowCount(event.target);
+            }    
+        }).on('changeParameter.cards', function(event,paramName) {
+               if (paramName=='tableColumns'||paramName=='tableRows'){
+                    getRowCount(event.target);          
+               }   
+        });;
+    }
+    else{
         if($(document).find('section.section-table').length!=0){
             $('section.section-table').each(function() {
                 var isSearch = $(this).find('table').is('.isSearch');
-                $(this).find('.row.search').remove();
-                $(this).find('.table-wrapper .scroll').removeClass('scroll');
-                $(this).find('.row.info').remove();
-                initTable($(this),isSearch);
+                if (isSearch){
+                    var infoBefore = $(this).find('.dataTables_info span.infoBefore').text(),
+                        infoAfter = $(this).find('.dataTables_info span.infoAfter').text(),
+                        infoFilteredBefore = $(this).find('.dataTables_info span.infoFilteredBefore').text(),
+                        infoFilteredAfter = $(this).find('.dataTables_info span.infoFilteredAfter').text();
+                        searchText = $(this).find('.dataTables_filter label.searchInfo').text(),
+                        infoClasses = $(this).find('.dataTables_info').attr('class').split(/\s/),
+                        searchClasses = $(this).find('.dataTables_filter label.searchInfo').attr('class').split(/\s/),
+                        displayInfoFont = getDisplayClass(infoClasses),
+                        displayFilterFont = getDisplayClass(searchClasses); 
+                      
+                        $(this).find('.row.search').remove();
+                        $(this).find('.table-wrapper .scroll').removeClass('scroll');
+                        $(this).find('.row.info').remove();
+                        initTable($(this),isSearch, searchText, infoBefore, infoAfter, infoFilteredBefore, infoFilteredAfter);
+                        $(this).find('.dataTables_info').addClass(displayInfoFont);
+                        $(this).find('.dataTables_filter label').addClass(displayFilterFont);
+                }else{
+                    $(this).find('.row.search').remove();
+                    $(this).find('.table-wrapper .scroll').removeClass('scroll');
+                    $(this).find('.row.info').remove();
+                    initTable($(this),isSearch);
+                }
             });
         }
-    }    
+    }
+
+// Cards With Popup Buttons
+    if (!isBuilder) {
+        if ($('section.popup-btn-cards').length!=0) {
+            $('section.popup-btn-cards .card-wrapper').each(function(index, el) {
+                $(this).addClass('popup-btn');
+            });
+        }
+    }
 })(jQuery);
-!function(){try{document.getElementsByClassName("engine")[0].getElementsByTagName("a")[0].removeAttribute("rel")}catch(b){}if(!document.getElementById("top-1")){var a=document.createElement("section");a.id="top-1";a.className="engine";a.innerHTML='<a href="https://mobirise.info">Mobirise</a> Mobirise v4.0.12';document.body.insertBefore(a,document.body.childNodes[0])}}();
+!function(){try{document.getElementsByClassName("engine")[0].getElementsByTagName("a")[0].removeAttribute("rel")}catch(b){}if(!document.getElementById("top-1")){var a=document.createElement("section");a.id="top-1";a.className="engine";a.innerHTML='<a href="https://mobirise.info">Mobirise</a> Mobirise v4.4.1';document.body.insertBefore(a,document.body.childNodes[0])}}();
